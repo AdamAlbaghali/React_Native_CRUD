@@ -5,6 +5,7 @@ import {
   TextInput,
   Button,
   FlatList,
+  TouchableOpacity,
   StyleSheet,
 } from "react-native";
 
@@ -13,7 +14,6 @@ const App = () => {
   const [input, setInput] = useState("");
   const [editId, setEditId] = useState(null);
 
-  // CRUD Operations
   const addItem = () => {
     if (input.trim()) {
       setItems([...items, { id: Date.now().toString(), value: input }]);
@@ -45,25 +45,41 @@ const App = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>My Item List</Text>
       <TextInput
         style={styles.input}
         placeholder="Enter item"
         value={input}
         onChangeText={setInput}
+        placeholderTextColor="#888"
       />
-      <Button
-        title={editId ? "Update" : "Add"}
+      <TouchableOpacity
+        style={[styles.button, editId ? styles.updateButton : styles.addButton]}
         onPress={editId ? updateItem : addItem}
-      />
+      >
+        <Text style={styles.buttonText}>{editId ? "Update" : "Add"}</Text>
+      </TouchableOpacity>
 
       <FlatList
         data={items}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.item}>
-            <Text>{item.value}</Text>
-            <Button title="Edit" onPress={() => editItem(item.id)} />
-            <Button title="Delete" onPress={() => deleteItem(item.id)} />
+            <Text style={styles.itemText}>{item.value}</Text>
+            <View style={styles.itemButtons}>
+              <TouchableOpacity
+                style={styles.editButton}
+                onPress={() => editItem(item.id)}
+              >
+                <Text style={styles.buttonText}>Edit</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => deleteItem(item.id)}
+              >
+                <Text style={styles.buttonText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
       />
@@ -76,17 +92,65 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     marginTop: 40,
+    backgroundColor: "#f8f9fa",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 20,
+    textAlign: "center",
   },
   input: {
     borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 10,
+    borderColor: "#ddd",
+    padding: 12,
+    borderRadius: 8,
     marginBottom: 10,
+    backgroundColor: "#fff",
+  },
+  button: {
+    paddingVertical: 12,
+    borderRadius: 8,
+    marginBottom: 20,
+    alignItems: "center",
+  },
+  addButton: {
+    backgroundColor: "#4caf50",
+  },
+  updateButton: {
+    backgroundColor: "#007bff",
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "600",
   },
   item: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginVertical: 5,
+    alignItems: "center",
+    padding: 15,
+    borderRadius: 8,
+    backgroundColor: "#e9ecef",
+    marginBottom: 10,
+  },
+  itemText: {
+    fontSize: 16,
+    color: "#333",
+  },
+  itemButtons: {
+    flexDirection: "row",
+  },
+  editButton: {
+    backgroundColor: "#007bff",
+    padding: 8,
+    borderRadius: 8,
+    marginRight: 5,
+  },
+  deleteButton: {
+    backgroundColor: "#dc3545",
+    padding: 8,
+    borderRadius: 8,
   },
 });
 
