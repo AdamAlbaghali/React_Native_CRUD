@@ -45,7 +45,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>My Item List</Text>
+      <Text style={styles.title}>Item List</Text>
       <TextInput
         style={styles.input}
         placeholder="Enter item"
