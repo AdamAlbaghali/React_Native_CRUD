@@ -35,13 +35,3 @@ Ensure you have the following tools installed on your system:
 - **Expo CLI**: Install globally using `npm install -g expo-cli` (or use the local Expo CLI as recommended).
 - **Watchman** (macOS): Install using Homebrew with `brew install watchman`.
 
-## Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/AdamAlbaghali/React_Native_CRUD.git
-2. Navigate to the project directory:
-   ```bash
-   cd React_Native_CRUD
-3. Install the dependencies
-   
-
